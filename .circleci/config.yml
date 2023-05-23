@@ -1,4 +1,4 @@
-version: 2.0
+version: 2.1
 orbs:
   # orgs contain basc recipes and reproducible actions (install node, aws, etc.)
   node: circleci/node@5.1.0
@@ -42,8 +42,11 @@ jobs:
             npm run api:build
   test:
     docker:
-      - image: "cimg/base:stable"
+      - image: "cimg/node:20.2.0-browsers"
+        environment:
+          CHROME_BIN: "/usr/bin/google-chrome"
     steps:
+      - checkout
       - run:
           name: Front-End Lint
           command: |
@@ -79,8 +82,8 @@ workflows:
     jobs:
       - build
       - test:
-        requires:
-          - build
+          requires:
+            - build
       - hold:
           filters:
             branches:
