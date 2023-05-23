@@ -44,18 +44,17 @@ jobs:
     docker:
       - image: "cimg/base:stable"
     steps:
-      - checkout
       # TODO: Lint the frontend
       - run:
           name: Front-End Lint
           command: |
             echo "Lint the frontend"
             npm run frontend:lint
-      -run:
-        name: Front-End Tests
-        command: |
-        echo "Run frontend tests"
-        npm run frontend:test
+      - run:
+          name: Front-End Tests
+          command: |
+            echo "Run frontend tests"
+            npm run frontend:test
   # deploy step will run only after tests pass and manual approval
   deploy:
     docker:
