@@ -80,6 +80,8 @@ workflows:
     jobs:
       - build
       - test
+        requires:
+          - build
       - hold:
           filters:
             branches:
