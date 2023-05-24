@@ -35,7 +35,7 @@ jobs:
       #       echo "Build the frontend app"
       #       npm run frontend:build
       # TODO: Build the backend API
-      - run: echo "ls -a" 
+      - run: ls -a
       - run:
           name: API Build
           command: |
