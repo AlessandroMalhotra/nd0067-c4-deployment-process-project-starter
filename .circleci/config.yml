@@ -23,26 +23,22 @@ jobs:
             echo $(node --version)
             echo "NPM --version" 
             echo $(npm --version)
-            npm run frontend:install
-      - save_cache:
-          key: v1-deps-{{ checksum "package-lock.json" }}
-          paths: 
-            - node_modules      
-      # - run:
-      #     name: Install API Dependencies
-      #     command: |
-      #      echo "Install Backend API Dependenices"
-      #      npm run api:install
+            npm run frontend:install    
+      - run:
+          name: Install API Dependencies
+          command: |
+           echo "Install Backend API Dependenices"
+           npm run api:install
       - run:
           name: Front-End Build
           command: |
             echo "Build the frontend app"
             npm run frontend:build
-      # - run:
-      #     name: API Build
-      #     command: |
-      #       echo "Build the backend API"
-      #       npm run api:build
+      - run:
+          name: API Build
+          command: |
+            echo "Build the backend API"
+            npm run api:build
   test:
     docker:
       - image: "cimg/node:20.2.0-browsers"
@@ -50,16 +46,14 @@ jobs:
           CHROME_BIN: "/usr/bin/google-chrome"
     steps:
       - checkout
-      - restore_cache:
-          key: v1-deps-{{ checksum "package-lock.json" }}
-      # - run:
-      #     name: Install Front-End Dependencies
-      #     command: |
-      #       echo "NODE --version" 
-      #       echo $(node --version)
-      #       echo "NPM --version" 
-      #       echo $(npm --version)
-      #       npm run frontend:install  
+      - run:
+          name: Install Front-End Dependencies
+          command: |
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
+            npm run frontend:install  
       - run:
           name: Front-End Lint
           command: |
