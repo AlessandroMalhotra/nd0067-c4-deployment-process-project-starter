@@ -15,7 +15,7 @@ jobs:
       - node/install:
           node-version: '14.15'         
       - checkout
-      Use root level package.json to install dependencies in the frontend app
+      # Use root level package.json to install dependencies in the frontend app
       - run:
           name: Install Front-End Dependencies
           command: |
@@ -34,8 +34,6 @@ jobs:
           command: |
             echo "Build the frontend app"
             npm run frontend:build
-      TODO: Build the backend API
-      - run: cd udagram/udagram-api && ls -a
       - run:
           name: API Build
           command: |
