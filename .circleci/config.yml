@@ -46,7 +46,9 @@ jobs:
           CHROME_BIN: "/usr/bin/google-chrome"
     steps:
       - checkout
-      - run: cd udagram/udagram-frontend && ls -a
+      - run:
+          name: Install angularcli
+          command: sudo npm install -g @angular/cli@latest
       - run:
           name: Front-End Lint
           command: |
