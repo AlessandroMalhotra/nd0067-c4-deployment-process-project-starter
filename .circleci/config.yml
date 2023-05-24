@@ -23,9 +23,7 @@ jobs:
       #       echo $(node --version)
       #       echo "NPM --version" 
       #       echo $(npm --version)
-      #       npm run frontend:install
-      - run: cd udagram/udagram-api
-      - run: ls -a       
+      #       npm run frontend:install      
       - run:
           name: Install API Dependencies
           command: |
@@ -37,6 +35,7 @@ jobs:
       #       echo "Build the frontend app"
       #       npm run frontend:build
       # TODO: Build the backend API
+      - run: cd udagram/udagram-api && ls -a
       - run:
           name: API Build
           command: |
