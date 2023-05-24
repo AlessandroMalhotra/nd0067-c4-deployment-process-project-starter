@@ -47,8 +47,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install angularcli
-          command: sudo npm install -g @angular/cli@latest
+          name: Install Front-End Dependencies
+          command: |
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
+            npm run frontend:install  
       - run:
           name: Front-End Lint
           command: |
