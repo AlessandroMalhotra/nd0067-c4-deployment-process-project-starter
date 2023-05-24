@@ -24,21 +24,21 @@ jobs:
             echo "NPM --version" 
             echo $(npm --version)
             npm run frontend:install      
-      - run:
-          name: Install API Dependencies
-          command: |
-           echo "Install Backend API Dependenices"
-           npm run api:install
+      # - run:
+      #     name: Install API Dependencies
+      #     command: |
+      #      echo "Install Backend API Dependenices"
+      #      npm run api:install
       - run:
           name: Front-End Build
           command: |
             echo "Build the frontend app"
             npm run frontend:build
-      - run:
-          name: API Build
-          command: |
-            echo "Build the backend API"
-            npm run api:build
+      # - run:
+      #     name: API Build
+      #     command: |
+      #       echo "Build the backend API"
+      #       npm run api:build
   test:
     docker:
       - image: "cimg/node:20.2.0-browsers"
@@ -46,6 +46,7 @@ jobs:
           CHROME_BIN: "/usr/bin/google-chrome"
     steps:
       - checkout
+      - run: cd udagram/udagram-frontend && ls -a
       - run:
           name: Front-End Lint
           command: |
