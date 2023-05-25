@@ -52,8 +52,6 @@ jobs:
             echo "NPM --version" 
             echo $(npm --version)
             npm run frontend:install
-            npm install -g karma-cli bower
-            bower install
       - run:
           name: Front-End Lint
           command: |
