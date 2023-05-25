@@ -10,10 +10,7 @@ jobs:
     docker:
       # the base image can run most needed actions with orbs
       - image: "cimg/node:14.15"
-    steps:
-      # install node and checkout code
-      - node/install:
-          node-version: '14.15'     
+    steps:        
       - checkout
       - persist_to_workspace:
           root: .
@@ -25,8 +22,8 @@ jobs:
       - image: "cimg/node:14.15"
     steps:
       # install node and checkout code
-      # - node/install:
-      #     node-version: '14.15'
+      - node/install:
+          node-version: '14.15'
       # Attach workspace so we can cache dependencies
       - attach_workspace:
           at: .
@@ -107,7 +104,9 @@ workflows:
   udagram:
     jobs:
       - checkout_source
-      - build
+      - build:
+          requires:
+            - checkout_source
       - test:
           requires:
             - build
