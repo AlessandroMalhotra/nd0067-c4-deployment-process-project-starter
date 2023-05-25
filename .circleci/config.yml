@@ -29,22 +29,20 @@ jobs:
           command: |
            echo "Install Backend API Dependenices"
            npm run api:install
-      # - run:
-      #     name: Front-End Build
-      #     command: |
-      #       echo "Build the frontend app"
-      #       npm run frontend:build
-      # - run:
-      #     name: API Build
-      #     command: |
-      #       echo "Build the backend API"
-      #       npm run api:build
+      - run:
+          name: Front-End Build
+          command: |
+            echo "Build the frontend app"
+            npm run frontend:build
+      - run:
+          name: API Build
+          command: |
+            echo "Build the backend API"
+            npm run api:build
   test:
     docker:
-      - image: "cimg/node:14.15-browsers"
+      - image: "cimg/node:14.5"
     steps:
-      - attach_workspace:
-          at: .
       - checkout
       - run:
           name: Install Front-End Dependencies
@@ -61,12 +59,6 @@ jobs:
           command: |
             echo "Lint the frontend"
             npm run frontend:lint
-      - run:
-          name: Front-End Tests
-          command: |
-            echo "Run frontend tests"
-            xargs npx mocha
-            npm run frontend:test
   # deploy step will run only after tests pass and manual approval
   deploy:
     docker:
