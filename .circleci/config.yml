@@ -6,6 +6,16 @@ orbs:
   aws-cli: circleci/aws-cli@3.1.5
   # different jobs are calles later in the workflows sections
 jobs:
+  checkout_source:
+    docker:
+      # the base image can run most needed actions with orbs
+      - image: "cimg/node:14.15"
+    steps:        
+      - checkout
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   build:
     docker:
       # the base image can run most needed actions with orbs
@@ -13,8 +23,13 @@ jobs:
     steps:
       # install node and checkout code
       - node/install:
-          node-version: '14.15'         
-      - checkout
+          node-version: '14.15'
+      # Attach workspace so we can cache dependencies
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package-lock.json" }}
       # Use root level package.json to install dependencies in the frontend app
       - run:
           name: Install Front-End Dependencies
@@ -23,7 +38,15 @@ jobs:
             echo $(node --version)
             echo "NPM --version" 
             echo $(npm --version)
-            npm run frontend:install    
+            npm run frontend:install
+      - save_cache:
+          key: dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules/*   
       - run:
           name: Install API Dependencies
           command: |
@@ -41,19 +64,11 @@ jobs:
             npm run api:build
   test:
     docker:
-      - image: "cimg/node:20.2.0-browsers"
-        environment:
-          CHROME_BIN: "/usr/bin/google-chrome"
+      - image: "cimg/node:14.15"
     steps:
-      - checkout
-      - run:
-          name: Install Front-End Dependencies
-          command: |
-            echo "NODE --version" 
-            echo $(node --version)
-            echo "NPM --version" 
-            echo $(npm --version)
-            npm run frontend:install  
+      - attach_workspace:
+          at: .
+      - checkout  
       - run:
           name: Front-End Lint
           command: |
@@ -63,6 +78,7 @@ jobs:
           name: Front-End Tests
           command: |
             echo "Run frontend tests"
+            xargs npx mocha
             npm run frontend:test
   # deploy step will run only after tests pass and manual approval
   deploy:
@@ -87,6 +103,7 @@ jobs:
 workflows:
   udagram:
     jobs:
+      - checkout_source
       - build
       - test:
           requires:
