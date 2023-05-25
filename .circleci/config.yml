@@ -41,7 +41,7 @@ jobs:
       #       npm run api:build
   test:
     docker:
-      - image: "cimg/node:14.15"
+      - image: "cimg/node:14.15-browsers"
     steps:
       - attach_workspace:
           at: .
@@ -54,6 +54,8 @@ jobs:
             echo "NPM --version" 
             echo $(npm --version)
             npm run frontend:install
+            npm install -g karma-cli bower
+            bower install
       - run:
           name: Front-End Lint
           command: |
