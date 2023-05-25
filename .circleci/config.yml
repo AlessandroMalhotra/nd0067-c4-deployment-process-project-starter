@@ -6,16 +6,6 @@ orbs:
   aws-cli: circleci/aws-cli@3.1.5
   # different jobs are calles later in the workflows sections
 jobs:
-  checkout_source:
-    docker:
-      # the base image can run most needed actions with orbs
-      - image: "cimg/node:14.15"
-    steps:        
-      - checkout
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
   build:
     docker:
       # the base image can run most needed actions with orbs
@@ -23,13 +13,8 @@ jobs:
     steps:
       # install node and checkout code
       - node/install:
-          node-version: '14.15'
-      # Attach workspace so we can cache dependencies
-      - attach_workspace:
-          at: .
-      - restore_cache:
-          keys:
-            - dependencies-{{ checksum "package-lock.json" }}
+          node-version: '14.15'    
+      - checkout
       # Use root level package.json to install dependencies in the frontend app
       - run:
           name: Install Front-End Dependencies
@@ -39,36 +24,36 @@ jobs:
             echo "NPM --version" 
             echo $(npm --version)
             npm run frontend:install
-      - save_cache:
-          key: dependencies-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-      - persist_to_workspace:
-          root: .
-          paths:
-            - node_modules/*   
       - run:
           name: Install API Dependencies
           command: |
            echo "Install Backend API Dependenices"
            npm run api:install
-      - run:
-          name: Front-End Build
-          command: |
-            echo "Build the frontend app"
-            npm run frontend:build
-      - run:
-          name: API Build
-          command: |
-            echo "Build the backend API"
-            npm run api:build
+      # - run:
+      #     name: Front-End Build
+      #     command: |
+      #       echo "Build the frontend app"
+      #       npm run frontend:build
+      # - run:
+      #     name: API Build
+      #     command: |
+      #       echo "Build the backend API"
+      #       npm run api:build
   test:
     docker:
       - image: "cimg/node:14.15"
     steps:
       - attach_workspace:
           at: .
-      - checkout  
+      - checkout
+      - run:
+          name: Install Front-End Dependencies
+          command: |
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
+            npm run frontend:install
       - run:
           name: Front-End Lint
           command: |
@@ -103,10 +88,7 @@ jobs:
 workflows:
   udagram:
     jobs:
-      - checkout_source
-      - build:
-          requires:
-            - checkout_source
+      - build
       - test:
           requires:
             - build
