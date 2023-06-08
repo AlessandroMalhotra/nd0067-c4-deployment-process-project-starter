@@ -54,7 +54,7 @@ The e2e tests are using Protractor and Jasmine.
 ## Screenshots:
 
 1. AWS RDS for the database overview:
-  ![RDS](/public/RDS.png)
+  ![RDS](/public/rds.png)
   
 
 
