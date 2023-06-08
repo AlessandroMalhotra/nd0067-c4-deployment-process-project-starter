@@ -50,5 +50,11 @@ The e2e tests are using Protractor and Jasmine.
 - [Angular](https://angular.io/) - Single Page Application Framework
 - [Node](https://nodejs.org) - Javascript Runtime
 - [Express](https://expressjs.com/) - Javascript API Framework
+  
+## Screenshots:
+
+1. AWS RDS for the database overview:
+  ![RDS](/public/RDS.png)
+  
 
 
