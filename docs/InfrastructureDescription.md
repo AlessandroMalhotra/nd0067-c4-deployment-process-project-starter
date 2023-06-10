@@ -24,4 +24,4 @@ Elastic Beanstalk will handle deploying the app to the right-sized EC2 machines,
 
 ## Architecture Diagram:
 
-![RDS](/public/Architecture Diagram.png)
+![Documents](/public/Architecture diagram.png)
