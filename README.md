@@ -69,5 +69,3 @@ The e2e tests are using Protractor and Jasmine.
    ![Documents](/public/build.png)
 8. Deployment Phase
    ![Documents](/public/deploy.png)
-
-
