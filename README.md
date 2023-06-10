@@ -54,22 +54,20 @@ The e2e tests are using Protractor and Jasmine.
 ## Screenshots:
 
 1. AWS RDS for the database overview:
-   ![RDS](/public/rds.png)
+   ![Documents](/public/rds.png)
 2. AWS ElasticBeanstalk for the (backend) API deployment:
-   ![EB] (/public/eb.png)
+   ![Documents](/public/eb.png)
 3. AWS S3 for (frontend) web hosting:
-   ![Home](/public/s3.png)
+   ![Documents](/public/s3.png)
 4. Udagram Project in Circle CI:
-   ![Udagram](/public/circleci.png)
+   ![Documents](/public/circleci.png)
 5. Environment Variables:
-   ![Udagram](/public/environmentVariables.png)
+   ![Documents](/public/environmentVariables.png)
 6. Picture of the last successful execution of the pipeline:
-   ![Last Build](/public/pipeline.png)
+   ![Documents](/public/pipeline.png)
 7. Build Phase
-   ![Build](/public/build.png)
+   ![Documents](/public/build.png)
 8. Deployment Phase
-   ![Deployment](/public/deploy.png)
-
-  
+   ![Documents](/public/deploy.png)
 
 
