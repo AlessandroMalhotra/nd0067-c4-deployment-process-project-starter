@@ -65,3 +65,5 @@ The pipeline is designed to be run as a single workflow called udagram. This wor
 * Deploy
 
 The Hold job is only triggered if the Build job succeeds and the branch being built is either master or main. Once the Hold job is approved, the Deploy job is triggered to deploy the applications to Elastic Beanstalk.
+
+![Documents](/public/pipelineoverview.png)
