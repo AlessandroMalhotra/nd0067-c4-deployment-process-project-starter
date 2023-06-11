@@ -53,7 +53,7 @@ The e2e tests are using Protractor and Jasmine.
 
  ## Front End Link
 
- http://udigram.s3.us-east-1.amazonaws.com 
+ http://udigram.s3.us-east-1.amazonaws.com
   
 ## Screenshots:
 
